@@ -10,6 +10,11 @@ a [Hugo](https://gohugo.io)-based Git repository. The static website is then ser
 Usage
 -----
 
+### Themes
+You can manage themes 2 ways:
+1. Copy the theme into the themes folder.
+2. Create a git submodule for the theme.
+
 ### Environment variables
 Pass the following environment variables when instantiating the docker container:
 
@@ -21,3 +26,7 @@ The URL of the git repository.
 
 #### GIT_BRANCH
 The branch to use (defaults to master if not passed).
+
+#### BASE_URL
+If set, hugo will build canonified URLS using the base url. 
+Useful if you want the site to build to a different URL than defined in the configuation file.

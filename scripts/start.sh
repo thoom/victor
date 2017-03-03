@@ -19,12 +19,16 @@ if [ ! -d ".git" ]; then
    # Remove the test index file
    rm -Rf /var/www/*
    if [ ! -z "$GIT_BRANCH" ]; then
-     git clone -b $GIT_BRANCH $GIT_REPO /var/www
+     git clone --recursive -b $GIT_BRANCH $GIT_REPO /var/www
    else
-     git clone $GIT_REPO /var/www
+     git clone --recursive $GIT_REPO /var/www
    fi
 
-   hugo   
+   if [ ! -z "$BASE_URL" ]; then
+    hugo --baseURL $BASE_URL --canonifyURLs
+   else
+    hugo
+   fi
  fi
 fi
 
