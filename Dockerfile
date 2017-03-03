@@ -2,10 +2,9 @@ FROM nginx:alpine
 MAINTAINER Z. d. Peacock <zdp@thoomtech.com>
 
 ENV HUGO_VERSION=0.19
-RUN apk add --no-cache --update --virtual .build-deps \
+RUN apk add --no-cache --update \
     wget \
     ca-certificates \
-    && apk add --no-cache --update \
     openssh-client \
     git \
     py-pygments \
@@ -14,9 +13,7 @@ RUN apk add --no-cache --update --virtual .build-deps \
     && wget https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz \
     && tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz \
     && rm -r hugo_${HUGO_VERSION}_Linux-64bit.tar.gz \
-    && mv hugo*/hugo* /usr/bin/hugo \
-    && apk del .build-deps
-
+    && mv hugo*/hugo* /usr/bin/hugo
 
 ADD conf/nginx-site.conf /etc/nginx/conf.d/default.conf
 
