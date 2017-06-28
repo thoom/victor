@@ -35,5 +35,5 @@ Useful if you want the site to build to a different URL than defined in the conf
 If set, hugo will be rebuild on container restart.
 Useful if you also want to use this image in development.
 
-#### HUGO_ARGS
-Add additional hugo arguments on build
+#### CLI_ARGS
+Add additional hugo command line arguments when a project is built.
