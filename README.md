@@ -30,3 +30,10 @@ The branch to use (defaults to master if not passed).
 #### BASE_URL
 If set, hugo will build canonified URLS using the base url. 
 Useful if you want the site to build to a different URL than defined in the configuation file.
+
+#### BUILD_ON_START
+If set, hugo will be rebuild on container restart.
+Useful if you also want to use this image in development.
+
+#### HUGO_ARGS
+Add additional hugo arguments on build

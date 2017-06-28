@@ -18,7 +18,7 @@ if [ ! -d ".git" ]; then
   # Pull down code from git
   if [ ! -z "$GIT_REPO" ]; then
     
-    # Remove the test file
+    # Remove any data in the directory
     rm -Rf /var/www/*
     
     if [ ! -z "$GIT_BRANCH" ]; then
@@ -27,16 +27,27 @@ if [ ! -d ".git" ]; then
       git clone --recursive $GIT_REPO /var/www
     fi
 
-    if [ ! -z "$BASE_URL" ]; then
-      hugo --baseURL $BASE_URL --canonifyURLs
-    else
-      hugo
-    fi
+    BUILD=true
+  fi
+fi
+
+if [ ! -z "$BUILD_ON_START" ]; then
+  BUILD=true
+fi
+
+if [ ! -z "$BUILD" ]; then
+  rm -Rf /var/www/public
+
+  HUGO_ARGS=$CLI_ARGS
+  if [ ! -z "$BASE_URL" ]; then
+     HUGO_ARGS="$HUGO_ARGS --baseURL $BASE_URL --canonifyURLs"
   fi
 
-  # Always chown webroot for better mounting
-  chown -Rf nginx.nginx /var/www
+  hugo $HUGO_ARGS
 fi
+
+# Always chown webroot for better mounting
+#chown -Rf nginx.nginx /var/www/public
 
 # Start nginx
 nginx -g "daemon off;"
